@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>The Gallery of Horns</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  
   <link rel="stylesheet" href="css/styles.css">
+  <script id="image-template" type="text/x-handlebars-template">
+    <section  id='{{keyword}}' class="imagediv {{keyword}}">
+      <h2>{{title}}</h2>
+      <img src='{{image_url}}' alt="" class='showImages'>
+      <p>{{description}}</p>
+      <span>{{horns}}</span>
+  </section>
+  </script>
 </head>
 <body>
   <div id="container">
     <header>
       <h1>The Gallery of Horns</h1>
       <select id="mainSelect">
-        <option value="default" name="">Filter by Keyword</option>
+        <option value="default" name="">Filter By Keyword</option>
       </select>
     </header>
     <main>
-      <section class="image-template">
+      <br><br>
+      <button id="title">Sort By Title</button>
+      <button id="horns">Sort By Horns</button><br><br>
+      <button id="p1">page1</button>
+      <button id="p2">page2</button>
+      <div id="photo-template" class=''></div>
+      <!-- <section class="image-template">
           <h2></h2>
           <img src="" alt="">
           <p></p>
-      </section>
+          <span></span>
+      </section> -->
     </main>
     <!-- <div class="clearfix"></div> -->
     <footer>
       &copy; 2019 &copy <a href="https://mreshtaiwi.github.io/shihab">Shihab Eshtaiwi</a>
     </footer>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <script src="js/app.js"></script>
 </body>
 
