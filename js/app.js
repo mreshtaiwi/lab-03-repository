@@ -2,6 +2,7 @@
 let all = [];
 let pageNum = 1;
 function Item(data) {
+  // eslint-disable-next-line camelcase
   this.image_url = data.image_url;
   this.keyword = data.keyword;
   this.description = data.description;
@@ -110,27 +111,54 @@ function sortByTitle() {
     path = 'data/page-2.json';
   }
   $('section').remove();
-  $.get(path)
-    .then(data => {
-      let newdata = data.sort((a, b) => {
-        var TitleA = a.title.toUpperCase(); // ignore upper and lowercase
-        var Titleb = b.title.toUpperCase(); // ignore upper and lowercase
-        if (TitleA < Titleb) {
-          return -1;
-        }
-        if (TitleA > Titleb) {
-          return 1;
-        }
-        // names must be equal
-        return 0;
-      });
-      newdata.forEach((value, idx) => {
-        let list = new Item(value);
-        list.render();
-      });
-    });
+  sortforme(this.id, path);
 }
 
+function sortforme(type, path) {
+  let sortby = type;
+  if (sortby === 'title') {
+    $.get(path)
+      .then(data => {
+        let newdata = data.sort((a, b) => {
+          var TitleA = a.title.toUpperCase(); // ignore upper and lowercase
+          var Titleb = b.title.toUpperCase(); // ignore upper and lowercase
+          if (TitleA < Titleb) {
+            return -1;
+          }
+          if (TitleA > Titleb) {
+            return 1;
+          }
+          // names must be equal
+          return 0;
+        });
+        newdata.forEach((value, idx) => {
+          let list = new Item(value);
+          list.render();
+        });
+      });
+  } else {
+    $.get(path)
+      .then(data => {
+        let newdata = data.sort((a, b) => {
+          var hornsA = a.horns;
+          var hornsb = b.horns;
+          if (hornsA < hornsb) {
+            return -1;
+          }
+          if (hornsA > hornsb) {
+            return 1;
+          }
+          // names must be equal
+          return 0;
+        });
+        newdata.forEach((value, idx) => {
+          let list = new Item(value);
+          list.render();
+        });
+      });
+  }
+
+}
 $('#horns').on('click', sortByHorns);
 function sortByHorns() {
   let path;
@@ -140,24 +168,6 @@ function sortByHorns() {
     path = 'data/page-2.json';
   }
   $('section').remove();
-  $.get(path)
-    .then(data => {
-      let newdata = data.sort((a, b) => {
-        var hornsA = a.horns;
-        var hornsb = b.horns;
-        if (hornsA < hornsb) {
-          return -1;
-        }
-        if (hornsA > hornsb) {
-          return 1;
-        }
-        // names must be equal
-        return 0;
-      });
-      newdata.forEach((value, idx) => {
-        let list = new Item(value);
-        list.render();
-      });
-    });
+  sortforme(this.id, path);
 }
 readpath('data/page-1.json');
